@@ -43,8 +43,7 @@ for (i=0; i<gameGrid.length; i++) {
  var count = 0;
  var firstGuess ='';
  var secondGuess ='';
- var previousTarget = null;
- var delay = 1200;
+ var perviousTarget = null;
 
 var match = function() {
     var selected = document.querySelectorAll('.selected');
@@ -54,23 +53,10 @@ var match = function() {
     }
 }
 
-
-var resetGuesses = function() {
-   count = 0;
-   firstGuess ='';
-   secondGuess ='';
-   previousTarget = null;
-   
-   let selected = document.querySelectorAll('.selected')
-   for (i=0; i < selected.length; i++) {
-         selected[i].classList.remove('selected')
-    }
-}
-
 grid.addEventListener('click', function(event){
     var clicked = event.target;
 
-    if (clicked.nodeName === 'SECTION' || clicked === previousTarget || clicked.parentNode.classList.contains('selected') || clicked.parentNode.classList.contains('match')) {
+    if (clicked.nodeName === 'SECTION' || clicked === previousTarget) {
         return;
     }
 
@@ -88,15 +74,13 @@ grid.addEventListener('click', function(event){
         if(firstGuess!=='' && secondGuess !=='') {
         
             if (firstGuess === secondGuess) {
-                setTimeout(match, delay);
-                setTimeout(resetGuesses, delay);
-             } else {
-                setTimeout(resetGuesses, delay);
-                }
+                match();
+            }
+
         }
 
         previousTarget = clicked;
 
-    }   
+}
 
 });
